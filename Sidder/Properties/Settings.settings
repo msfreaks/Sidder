@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SidderApp.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="userUVHDFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="userColumn1" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">360</Value>
+    </Setting>
+    <Setting Name="userColumn2" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">113</Value>
+    </Setting>
+    <Setting Name="userColumn3" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">134</Value>
+    </Setting>
+    <Setting Name="userColumn4" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">40</Value>
+    </Setting>
+    <Setting Name="sidderWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">758</Value>
+    </Setting>
+    <Setting Name="sidderHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">504</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

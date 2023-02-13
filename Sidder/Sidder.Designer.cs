@@ -45,6 +45,8 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // imageList
@@ -62,7 +64,7 @@
             this.textBoxFilePathUVHD.Location = new System.Drawing.Point(12, 25);
             this.textBoxFilePathUVHD.Name = "textBoxFilePathUVHD";
             this.textBoxFilePathUVHD.ReadOnly = true;
-            this.textBoxFilePathUVHD.Size = new System.Drawing.Size(650, 22);
+            this.textBoxFilePathUVHD.Size = new System.Drawing.Size(867, 22);
             this.textBoxFilePathUVHD.TabIndex = 1;
             this.textBoxFilePathUVHD.TabStop = false;
             this.textBoxFilePathUVHD.TextChanged += new System.EventHandler(this.textBoxFilePathUVHD_TextChanged);
@@ -80,7 +82,7 @@
             // 
             this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBrowse.Image = global::SidderApp.Properties.Resources.folder;
-            this.buttonBrowse.Location = new System.Drawing.Point(702, 25);
+            this.buttonBrowse.Location = new System.Drawing.Point(919, 25);
             this.buttonBrowse.Name = "buttonBrowse";
             this.buttonBrowse.Size = new System.Drawing.Size(28, 22);
             this.buttonBrowse.TabIndex = 1;
@@ -94,7 +96,7 @@
             this.linkLabel.AutoSize = true;
             this.linkLabel.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(133)))));
-            this.linkLabel.Location = new System.Drawing.Point(592, 447);
+            this.linkLabel.Location = new System.Drawing.Point(809, 447);
             this.linkLabel.Name = "linkLabel";
             this.linkLabel.Size = new System.Drawing.Size(149, 12);
             this.linkLabel.TabIndex = 4;
@@ -108,7 +110,7 @@
             // 
             this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRefresh.Image = global::SidderApp.Properties.Resources.sync;
-            this.buttonRefresh.Location = new System.Drawing.Point(668, 25);
+            this.buttonRefresh.Location = new System.Drawing.Point(885, 25);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(28, 22);
             this.buttonRefresh.TabIndex = 0;
@@ -131,7 +133,7 @@
             this.textBoxStatus.Enabled = false;
             this.textBoxStatus.Location = new System.Drawing.Point(13, 422);
             this.textBoxStatus.Name = "textBoxStatus";
-            this.textBoxStatus.Size = new System.Drawing.Size(649, 22);
+            this.textBoxStatus.Size = new System.Drawing.Size(866, 22);
             this.textBoxStatus.TabIndex = 7;
             this.textBoxStatus.TabStop = false;
             // 
@@ -140,7 +142,7 @@
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDelete.Enabled = false;
             this.buttonDelete.Image = global::SidderApp.Properties.Resources.delete;
-            this.buttonDelete.Location = new System.Drawing.Point(702, 422);
+            this.buttonDelete.Location = new System.Drawing.Point(919, 422);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(28, 22);
             this.buttonDelete.TabIndex = 3;
@@ -157,12 +159,14 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6});
             this.listViewUVHDFiles.FullRowSelect = true;
             this.listViewUVHDFiles.HideSelection = false;
             this.listViewUVHDFiles.Location = new System.Drawing.Point(12, 55);
             this.listViewUVHDFiles.Name = "listViewUVHDFiles";
-            this.listViewUVHDFiles.Size = new System.Drawing.Size(718, 354);
+            this.listViewUVHDFiles.Size = new System.Drawing.Size(935, 354);
             this.listViewUVHDFiles.SmallImageList = this.imageList;
             this.listViewUVHDFiles.TabIndex = 8;
             this.listViewUVHDFiles.UseCompatibleStateImageBehavior = false;
@@ -192,13 +196,25 @@
             // 
             this.columnHeader4.Tag = "Numeric";
             this.columnHeader4.Text = "Size (MB)";
-            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Tag = "Numeric";
+            this.columnHeader5.Text = "PartitionSize (MB)";
+            this.columnHeader5.Width = 110;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Tag = "Numeric";
+            this.columnHeader6.Text = "NativeSize (MB)";
+            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader6.Width = 100;
             // 
             // Sidder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(742, 465);
+            this.ClientSize = new System.Drawing.Size(959, 465);
             this.Controls.Add(this.listViewUVHDFiles);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.textBoxStatus);
@@ -212,6 +228,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(758, 504);
             this.Name = "Sidder";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sidder";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Sidder_FormClosing);
             this.Load += new System.EventHandler(this.Sidder_Load);
@@ -237,6 +254,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
     }
 }
 

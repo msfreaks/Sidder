@@ -18,10 +18,16 @@
       <Value Profile="(Default)">40</Value>
     </Setting>
     <Setting Name="sidderWidth" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">758</Value>
+      <Value Profile="(Default)">915</Value>
     </Setting>
     <Setting Name="sidderHeight" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">504</Value>
+    </Setting>
+    <Setting Name="userColumn5" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">110</Value>
+    </Setting>
+    <Setting Name="userColumn6" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">100</Value>
     </Setting>
   </Settings>
 </SettingsFile>

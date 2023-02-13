@@ -130,14 +130,15 @@ namespace SidderApp
 
         private void Sidder_Load(object sender, EventArgs e)
         {
-            if(!String.IsNullOrEmpty(Properties.Settings.Default.userUVHDFilePath)){this.textBoxFilePathUVHD.Text = Properties.Settings.Default.userUVHDFilePath;}
+            if (!String.IsNullOrEmpty(Properties.Settings.Default.userUVHDFilePath)){this.textBoxFilePathUVHD.Text = Properties.Settings.Default.userUVHDFilePath;}
             this.listViewUVHDFiles.Columns[0].Width = Properties.Settings.Default.userColumn1;
             this.listViewUVHDFiles.Columns[1].Width = Properties.Settings.Default.userColumn2;
             this.listViewUVHDFiles.Columns[2].Width = Properties.Settings.Default.userColumn3;
             this.listViewUVHDFiles.Columns[3].Width = Properties.Settings.Default.userColumn4;
+            this.listViewUVHDFiles.Columns[4].Width = Properties.Settings.Default.userColumn5;
+            this.listViewUVHDFiles.Columns[5].Width = Properties.Settings.Default.userColumn6;
             this.Width = Properties.Settings.Default.sidderWidth;
             this.Height = Properties.Settings.Default.sidderHeight;
-
         }
 
         private void Sidder_FormClosing(object sender, FormClosingEventArgs e)
@@ -147,6 +148,8 @@ namespace SidderApp
             Properties.Settings.Default.userColumn2 = this.listViewUVHDFiles.Columns[1].Width;
             Properties.Settings.Default.userColumn3 = this.listViewUVHDFiles.Columns[2].Width;
             Properties.Settings.Default.userColumn4 = this.listViewUVHDFiles.Columns[3].Width;
+            Properties.Settings.Default.userColumn5 = this.listViewUVHDFiles.Columns[4].Width;
+            Properties.Settings.Default.userColumn6 = this.listViewUVHDFiles.Columns[5].Width;
             Properties.Settings.Default.sidderWidth = this.Width;
             Properties.Settings.Default.sidderHeight = this.Height;
             Properties.Settings.Default.Save();
@@ -198,6 +201,9 @@ namespace SidderApp
                     item.SubItems.Add(ConvertUVHDtoUsername(file.Name));
                     long fileSize = file.Length / 1024 / 1024;
                     item.SubItems.Add(fileSize.ToString());
+                    var vhdxInfo = new VHDXParser(file.FullName);
+                    item.SubItems.Add((vhdxInfo.FirstPartitionSize / 1024 / 1024).ToString());
+                    item.SubItems.Add((vhdxInfo.NativeDiskSize / 1024 / 1024).ToString());
                     item.SubItems.Add(file.FullName);
 
                     listViewUVHDFiles.Items.Add(item);

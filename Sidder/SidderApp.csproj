@@ -17,9 +17,7 @@
   <PropertyGroup>
     <StartupObject>SidderApp.Program</StartupObject>
   </PropertyGroup>
-  <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <ApplicationIcon>msfreaks.ico</ApplicationIcon>
   </PropertyGroup>
@@ -41,6 +39,9 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -61,6 +62,9 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExpandBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FolderBrowserEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -78,9 +82,12 @@
     <Compile Include="ListViewColumnSorter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VHDXParser.cs" />
+    <Compile Include="Parser\VHDXParser.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpandBox.resx">
+      <DependentUpon>ExpandBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DeleteBox.resx">
       <DependentUpon>DeleteBox.cs</DependentUpon>
@@ -98,6 +105,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -137,6 +145,7 @@
     <None Include="sync.png" />
     <None Include="folder.png" />
     <None Include="delete.png" />
+    <Content Include="expand.png" />
     <Content Include="msfreaks.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

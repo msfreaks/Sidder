@@ -5,24 +5,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SidderApp
+namespace SidderApp.Parser
 {
-    internal class VHDXParser
+    internal sealed class VHDXParser
     {
         private string _filename { get; set; }
-        public ulong NativeDiskSize { get { return GetNativeDiskSize(this._filename); } }
-        public ulong FirstPartitionSize { get { return GetFirstPartitionSize(this._filename); } }
+        public ulong NativeDiskSize { get { return GetNativeDiskSize(); } }
+        public ulong FirstPartitionSize { get { return GetFirstPartitionSize(); } }
 
         public VHDXParser(string filename)
         {
             _filename = filename;
         }
 
-        private ulong GetNativeDiskSize(string fileName)
+        private ulong GetNativeDiskSize()
         {
             try
             {
-                using (var fileVHDX = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (var fileVHDX = File.Open(this._filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
                     using (var binVHDX = new BinaryReader(fileVHDX))
                     {
@@ -49,11 +49,46 @@ namespace SidderApp
             }
         }
 
-        private ulong GetFirstPartitionSize(string fileName)
+        public bool SetNativeDiskSize(ulong newSize)
         {
             try
             {
-                using (var fileVHDX = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (var fileVHDX = File.Open(this._filename, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+                {
+                    using (var binVHDX = new BinaryReader(fileVHDX))
+                    {
+                        var regionTableMetadataHeaderEntry = SearchSignatur(binVHDX.BaseStream, new byte[] { 0x06, 0xA2, 0x7C, 0x8B, 0x90, 0x47, 0x9A, 0x4B, 0xB8, 0xFE, 0x57, 0x5F, 0x05, 0x0F, 0x88, 0x6E }) + 16;
+
+                        binVHDX.BaseStream.Seek(regionTableMetadataHeaderEntry, SeekOrigin.Begin);
+                        var posMetadataHeader = binVHDX.ReadUInt32();
+
+                        var posVDSizeOffsetEntry = SearchSignatur(binVHDX.BaseStream, new byte[] { 0x24, 0x42, 0xA5, 0x2F, 0x1B, 0xCD, 0x76, 0x48, 0xB2, 0x11, 0x5D, 0xBE, 0xD8, 0x3B, 0xF4, 0xB8 }, posMetadataHeader) + 16;
+
+                        binVHDX.BaseStream.Seek(posVDSizeOffsetEntry, SeekOrigin.Begin);
+                        var posVDSizeEntry = posMetadataHeader + binVHDX.ReadUInt32();
+
+                        using (var binVHDXw = new BinaryWriter(fileVHDX))
+                        {
+                            binVHDXw.BaseStream.Seek(posVDSizeEntry, SeekOrigin.Begin);
+                            binVHDXw.Write(newSize);
+                        }
+
+                    }
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private ulong GetFirstPartitionSize()
+        {
+            try
+            {
+                using (var fileVHDX = File.Open(this._filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
                     using (var binVHDX = new BinaryReader(fileVHDX))
                     {

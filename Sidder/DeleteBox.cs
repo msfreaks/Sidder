@@ -105,6 +105,5 @@ namespace SidderApp
             this.ResumeLayout(false);
 
         }
-
     }
 }

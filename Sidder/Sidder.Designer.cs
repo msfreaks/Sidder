@@ -33,13 +33,10 @@
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.textBoxFilePathUVHD = new System.Windows.Forms.TextBox();
             this.labelPathToUVHD = new System.Windows.Forms.Label();
-            this.buttonBrowse = new System.Windows.Forms.Button();
             this.linkLabel = new System.Windows.Forms.LinkLabel();
-            this.buttonRefresh = new System.Windows.Forms.Button();
             this.textBoxFilePathUVHDCurrent = new System.Windows.Forms.TextBox();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonDelete = new System.Windows.Forms.Button();
             this.listViewUVHDFiles = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -47,6 +44,10 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonExpand = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
+            this.buttonRefresh = new System.Windows.Forms.Button();
+            this.buttonBrowse = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // imageList
@@ -64,7 +65,7 @@
             this.textBoxFilePathUVHD.Location = new System.Drawing.Point(12, 25);
             this.textBoxFilePathUVHD.Name = "textBoxFilePathUVHD";
             this.textBoxFilePathUVHD.ReadOnly = true;
-            this.textBoxFilePathUVHD.Size = new System.Drawing.Size(867, 22);
+            this.textBoxFilePathUVHD.Size = new System.Drawing.Size(865, 22);
             this.textBoxFilePathUVHD.TabIndex = 1;
             this.textBoxFilePathUVHD.TabStop = false;
             this.textBoxFilePathUVHD.TextChanged += new System.EventHandler(this.textBoxFilePathUVHD_TextChanged);
@@ -78,25 +79,13 @@
             this.labelPathToUVHD.TabIndex = 2;
             this.labelPathToUVHD.Text = "Path to UVHD files:";
             // 
-            // buttonBrowse
-            // 
-            this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBrowse.Image = global::SidderApp.Properties.Resources.folder;
-            this.buttonBrowse.Location = new System.Drawing.Point(919, 25);
-            this.buttonBrowse.Name = "buttonBrowse";
-            this.buttonBrowse.Size = new System.Drawing.Size(28, 22);
-            this.buttonBrowse.TabIndex = 1;
-            this.toolTip.SetToolTip(this.buttonBrowse, "Browse for a folder");
-            this.buttonBrowse.UseVisualStyleBackColor = true;
-            this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
-            // 
             // linkLabel
             // 
             this.linkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabel.AutoSize = true;
             this.linkLabel.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(133)))));
-            this.linkLabel.Location = new System.Drawing.Point(809, 447);
+            this.linkLabel.Location = new System.Drawing.Point(807, 447);
             this.linkLabel.Name = "linkLabel";
             this.linkLabel.Size = new System.Drawing.Size(149, 12);
             this.linkLabel.TabIndex = 4;
@@ -105,18 +94,6 @@
             this.linkLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.toolTip.SetToolTip(this.linkLabel, "About");
             this.linkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
-            // 
-            // buttonRefresh
-            // 
-            this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRefresh.Image = global::SidderApp.Properties.Resources.sync;
-            this.buttonRefresh.Location = new System.Drawing.Point(885, 25);
-            this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(28, 22);
-            this.buttonRefresh.TabIndex = 0;
-            this.toolTip.SetToolTip(this.buttonRefresh, "Refresh");
-            this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
             // textBoxFilePathUVHDCurrent
             // 
@@ -133,22 +110,9 @@
             this.textBoxStatus.Enabled = false;
             this.textBoxStatus.Location = new System.Drawing.Point(13, 422);
             this.textBoxStatus.Name = "textBoxStatus";
-            this.textBoxStatus.Size = new System.Drawing.Size(866, 22);
+            this.textBoxStatus.Size = new System.Drawing.Size(864, 22);
             this.textBoxStatus.TabIndex = 7;
             this.textBoxStatus.TabStop = false;
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDelete.Enabled = false;
-            this.buttonDelete.Image = global::SidderApp.Properties.Resources.delete;
-            this.buttonDelete.Location = new System.Drawing.Point(919, 422);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(28, 22);
-            this.buttonDelete.TabIndex = 3;
-            this.toolTip.SetToolTip(this.buttonDelete, "Delete selected items");
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // listViewUVHDFiles
             // 
@@ -166,7 +130,7 @@
             this.listViewUVHDFiles.HideSelection = false;
             this.listViewUVHDFiles.Location = new System.Drawing.Point(12, 55);
             this.listViewUVHDFiles.Name = "listViewUVHDFiles";
-            this.listViewUVHDFiles.Size = new System.Drawing.Size(935, 354);
+            this.listViewUVHDFiles.Size = new System.Drawing.Size(933, 354);
             this.listViewUVHDFiles.SmallImageList = this.imageList;
             this.listViewUVHDFiles.TabIndex = 8;
             this.listViewUVHDFiles.UseCompatibleStateImageBehavior = false;
@@ -210,11 +174,62 @@
             this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeader6.Width = 100;
             // 
+            // buttonExpand
+            // 
+            this.buttonExpand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonExpand.Enabled = false;
+            this.buttonExpand.Image = global::SidderApp.Properties.Resources.expand;
+            this.buttonExpand.Location = new System.Drawing.Point(883, 422);
+            this.buttonExpand.Name = "buttonExpand";
+            this.buttonExpand.Size = new System.Drawing.Size(28, 22);
+            this.buttonExpand.TabIndex = 2;
+            this.toolTip.SetToolTip(this.buttonExpand, "Expand VHDX");
+            this.buttonExpand.UseVisualStyleBackColor = true;
+            this.buttonExpand.Click += new System.EventHandler(this.buttonExpand_Click);
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDelete.Enabled = false;
+            this.buttonDelete.Image = global::SidderApp.Properties.Resources.delete;
+            this.buttonDelete.Location = new System.Drawing.Point(917, 422);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(28, 22);
+            this.buttonDelete.TabIndex = 3;
+            this.toolTip.SetToolTip(this.buttonDelete, "Delete selected items");
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRefresh.Image = global::SidderApp.Properties.Resources.sync;
+            this.buttonRefresh.Location = new System.Drawing.Point(883, 25);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(28, 22);
+            this.buttonRefresh.TabIndex = 0;
+            this.toolTip.SetToolTip(this.buttonRefresh, "Refresh");
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            // 
+            // buttonBrowse
+            // 
+            this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonBrowse.Image = global::SidderApp.Properties.Resources.folder;
+            this.buttonBrowse.Location = new System.Drawing.Point(917, 25);
+            this.buttonBrowse.Name = "buttonBrowse";
+            this.buttonBrowse.Size = new System.Drawing.Size(28, 22);
+            this.buttonBrowse.TabIndex = 1;
+            this.toolTip.SetToolTip(this.buttonBrowse, "Browse for a folder");
+            this.buttonBrowse.UseVisualStyleBackColor = true;
+            this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
+            // 
             // Sidder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(959, 465);
+            this.ClientSize = new System.Drawing.Size(957, 465);
+            this.Controls.Add(this.buttonExpand);
             this.Controls.Add(this.listViewUVHDFiles);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.textBoxStatus);
@@ -256,6 +271,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.Button buttonExpand;
     }
 }
 

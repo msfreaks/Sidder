@@ -1,7 +1,7 @@
 # Sidder
-Sidder is a little tool built for the .net 4.5 Framework, which means it runs as a standalone executable on Windows 2012 and Windows 2012R2.
+Sidder is a little tool built for the .net 4.8 Framework, for managing User Profile Disks.
 
-Working in environments with lots of users and lots of User Profile Disks this tool will help you to quickly identify which User Profile Disk belongs to which Domain User.
+Working in environments with lots of users and lots of User Profile Disks this tool will help you to quickly identify which User Profile Disk belongs to which Domain User and perform basic administrative Tasks.
 
 First published on Microsoft TechNet Gallery: https://gallery.technet.microsoft.com/Sidder-Quickly-see-which-fa6360b3#content
 

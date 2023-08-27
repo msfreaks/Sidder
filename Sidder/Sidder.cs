@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.DirectoryServices.AccountManagement;
+using SidderApp.Parser;
 
 namespace SidderApp
 {
@@ -234,17 +235,60 @@ namespace SidderApp
         {
             if (listViewUVHDFiles.SelectedItems.Count < 1) 
             {
+                buttonExpand.Enabled = false;
                 buttonDelete.Enabled = false;
                 return;
             }
 
+            buttonExpand.Enabled = true;
             buttonDelete.Enabled = true;
 
         }
 
+        private void buttonExpand_Click(object sender, EventArgs e)
+        {
+            ExpandBox expandBox = new ExpandBox();
+            expandBox.listViewUVHDFiles.Items.Clear();
+
+            foreach (ListViewItem item in listViewUVHDFiles.SelectedItems)
+            {
+                ListViewItem expandItem = new ListViewItem(item.Text, item.ImageIndex);
+                expandItem.SubItems.Add(item.SubItems[2].Text);
+                expandItem.SubItems.Add(item.SubItems[5].Text);
+                expandItem.SubItems.Add(item.SubItems[5].Text);
+                expandItem.SubItems.Add(item.SubItems[6].Text);
+                expandBox.listViewUVHDFiles.Items.Add(expandItem);
+            }
+
+            DialogResult result = expandBox.ShowDialog();
+
+            if (result == DialogResult.Cancel) { return; }
+
+            if (result == DialogResult.OK)
+            {
+                foreach (ListViewItem item in expandBox.listViewUVHDFiles.Items)
+                {
+                    try
+                    {
+                        if (ulong.TryParse(item.SubItems[2].Text, out ulong oldSize) && ulong.TryParse(item.SubItems[3].Text, out ulong newSize))
+                        {
+                            if (newSize > 0 && newSize > oldSize)
+                            {
+                                (new VHDXParser(item.SubItems[4].Text)).SetNativeDiskSize(newSize * 1024 * 1024);
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+
+                refreshListBox(textBoxFilePathUVHD.Text);
+            }
+        }
+
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-
             DeleteBox deleteBox = new DeleteBox();
             deleteBox.listViewUVHDFiles.Items.Clear();
 
@@ -252,7 +296,7 @@ namespace SidderApp
             {
                 ListViewItem deleteItem = new ListViewItem(item.Text, item.ImageIndex);
                 deleteItem.SubItems.Add(item.SubItems[2].Text);
-                deleteItem.SubItems.Add(item.SubItems[4].Text);
+                deleteItem.SubItems.Add(item.SubItems[6].Text);
                 deleteBox.listViewUVHDFiles.Items.Add(deleteItem);
             }
 
@@ -297,6 +341,5 @@ namespace SidderApp
 
             return false;
         }
-
     }
 }

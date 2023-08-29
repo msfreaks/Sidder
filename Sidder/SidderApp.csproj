@@ -19,7 +19,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>msfreaks.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\msfreaks.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -62,6 +62,9 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="SettingsBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ExpandBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +75,11 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FolderSelectDialog.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Reflector.cs" />
     <Compile Include="Sidder.cs">
       <SubType>Form</SubType>
@@ -86,6 +94,9 @@
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SettingsBox.resx">
+      <DependentUpon>SettingsBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExpandBox.resx">
       <DependentUpon>ExpandBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -94,17 +105,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sidder.resx">
       <DependentUpon>Sidder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -142,11 +149,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="sync.png" />
-    <None Include="folder.png" />
-    <None Include="delete.png" />
-    <Content Include="expand.png" />
-    <Content Include="msfreaks.ico" />
+    <None Include="Resources\expand.png" />
+    <None Include="Resources\wrench.png" />
+    <None Include="Resources\sync.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\delete.png" />
+    <Content Include="Resources\msfreaks.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

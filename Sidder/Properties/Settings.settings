@@ -6,19 +6,19 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="userColumn1" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">360</Value>
+      <Value Profile="(Default)">342</Value>
     </Setting>
     <Setting Name="userColumn2" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">113</Value>
+      <Value Profile="(Default)">133</Value>
     </Setting>
     <Setting Name="userColumn3" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">134</Value>
+      <Value Profile="(Default)">161</Value>
     </Setting>
     <Setting Name="userColumn4" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">40</Value>
+      <Value Profile="(Default)">60</Value>
     </Setting>
     <Setting Name="sidderWidth" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">915</Value>
+      <Value Profile="(Default)">973</Value>
     </Setting>
     <Setting Name="sidderHeight" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">504</Value>
@@ -28,6 +28,9 @@
     </Setting>
     <Setting Name="userColumn6" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="resolveTypeSID" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

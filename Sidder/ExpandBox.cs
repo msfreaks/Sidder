@@ -115,6 +115,7 @@ namespace SidderApp
             // textBoxNewSize
             // 
             this.textBoxNewSize.Location = new System.Drawing.Point(99, 394);
+            this.textBoxNewSize.MaxLength = 10;
             this.textBoxNewSize.Name = "textBoxNewSize";
             this.textBoxNewSize.Size = new System.Drawing.Size(100, 22);
             this.textBoxNewSize.TabIndex = 3;

@@ -104,7 +104,7 @@ namespace SidderApp
         }
         #endregion
 
-        private void buttonDonate_Click(object sender, EventArgs e)
+        private void buttonDonateArjan_Click(object sender, EventArgs e)
         {
             string url = "";
 

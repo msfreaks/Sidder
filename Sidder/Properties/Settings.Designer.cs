@@ -12,7 +12,7 @@ namespace SidderApp.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.4.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -37,7 +37,7 @@ namespace SidderApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("360")]
+        [global::System.Configuration.DefaultSettingValueAttribute("342")]
         public int userColumn1 {
             get {
                 return ((int)(this["userColumn1"]));
@@ -49,7 +49,7 @@ namespace SidderApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("113")]
+        [global::System.Configuration.DefaultSettingValueAttribute("133")]
         public int userColumn2 {
             get {
                 return ((int)(this["userColumn2"]));
@@ -61,7 +61,7 @@ namespace SidderApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("134")]
+        [global::System.Configuration.DefaultSettingValueAttribute("161")]
         public int userColumn3 {
             get {
                 return ((int)(this["userColumn3"]));
@@ -73,7 +73,7 @@ namespace SidderApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("40")]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
         public int userColumn4 {
             get {
                 return ((int)(this["userColumn4"]));
@@ -85,7 +85,7 @@ namespace SidderApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("915")]
+        [global::System.Configuration.DefaultSettingValueAttribute("973")]
         public int sidderWidth {
             get {
                 return ((int)(this["sidderWidth"]));
@@ -128,6 +128,18 @@ namespace SidderApp.Properties {
             }
             set {
                 this["userColumn6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public byte resolveTypeSID {
+            get {
+                return ((byte)(this["resolveTypeSID"]));
+            }
+            set {
+                this["resolveTypeSID"] = value;
             }
         }
     }

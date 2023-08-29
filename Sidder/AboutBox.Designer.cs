@@ -35,7 +35,7 @@
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.okButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonDonate = new System.Windows.Forms.Button();
+            this.buttonDonateArjan = new System.Windows.Forms.Button();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,18 +50,18 @@
             this.tableLayoutPanel.Controls.Add(this.labelCompanyName, 0, 3);
             this.tableLayoutPanel.Controls.Add(this.okButton, 0, 6);
             this.tableLayoutPanel.Controls.Add(this.label1, 0, 4);
-            this.tableLayoutPanel.Controls.Add(this.buttonDonate, 0, 5);
-            this.tableLayoutPanel.Location = new System.Drawing.Point(9, 9);
+            this.tableLayoutPanel.Controls.Add(this.buttonDonateArjan, 0, 5);
+            this.tableLayoutPanel.Location = new System.Drawing.Point(9, 12);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 7;
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.76471F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.76471F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.76471F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.76471F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.64706F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.64706F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(417, 265);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(417, 298);
             this.tableLayoutPanel.TabIndex = 0;
             // 
             // labelProductName
@@ -116,7 +116,7 @@
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.okButton.Location = new System.Drawing.Point(339, 239);
+            this.okButton.Location = new System.Drawing.Point(339, 272);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 2;
@@ -127,31 +127,30 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 100);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(399, 26);
+            this.label1.Size = new System.Drawing.Size(411, 39);
             this.label1.TabIndex = 27;
-            this.label1.Text = "Sidder is completely free to use. There\'s a donate button here, but this is absol" +
-    "utely not required to use Sidder.";
+            this.label1.Text = resources.GetString("label1.Text");
             // 
-            // buttonDonate
+            // buttonDonateArjan
             // 
-            this.buttonDonate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.buttonDonateArjan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDonate.AutoSize = true;
-            this.buttonDonate.Image = ((System.Drawing.Image)(resources.GetObject("buttonDonate.Image")));
-            this.buttonDonate.Location = new System.Drawing.Point(3, 141);
-            this.buttonDonate.Name = "buttonDonate";
-            this.buttonDonate.Size = new System.Drawing.Size(411, 79);
-            this.buttonDonate.TabIndex = 1;
-            this.buttonDonate.UseVisualStyleBackColor = true;
-            this.buttonDonate.Click += new System.EventHandler(this.buttonDonate_Click);
+            this.buttonDonateArjan.AutoSize = true;
+            this.buttonDonateArjan.Image = ((System.Drawing.Image)(resources.GetObject("buttonDonateArjan.Image")));
+            this.buttonDonateArjan.Location = new System.Drawing.Point(3, 153);
+            this.buttonDonateArjan.Name = "buttonDonateArjan";
+            this.buttonDonateArjan.Size = new System.Drawing.Size(411, 94);
+            this.buttonDonateArjan.TabIndex = 1;
+            this.buttonDonateArjan.UseVisualStyleBackColor = true;
+            this.buttonDonateArjan.Click += new System.EventHandler(this.buttonDonateArjan_Click);
             // 
             // AboutBox
             // 
             this.AcceptButton = this.okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(435, 283);
+            this.ClientSize = new System.Drawing.Size(435, 322);
             this.Controls.Add(this.tableLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -177,6 +176,6 @@
         private System.Windows.Forms.Label labelCopyright;
         private System.Windows.Forms.Label labelCompanyName;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonDonate;
+        private System.Windows.Forms.Button buttonDonateArjan;
     }
 }

@@ -347,7 +347,7 @@ namespace SidderApp
             using (var fileSave = new SaveFileDialog())
             {
                 fileSave.Title = "Export to CSV";
-                fileSave.Filter = "CSV file (*.csv)|*.csv| All Files (*.*)|*.*";
+                fileSave.Filter = "CSV (*.csv)|*.csv";
                 fileSave.FilterIndex = 0;
                 fileSave.RestoreDirectory = true;
                 fileSave.CreatePrompt = true;

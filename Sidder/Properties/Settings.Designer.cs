@@ -142,5 +142,29 @@ namespace SidderApp.Properties {
                 this["resolveTypeSID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte exportDividerType {
+            get {
+                return ((byte)(this["exportDividerType"]));
+            }
+            set {
+                this["exportDividerType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte exportSizeType {
+            get {
+                return ((byte)(this["exportSizeType"]));
+            }
+            set {
+                this["exportSizeType"] = value;
+            }
+        }
     }
 }

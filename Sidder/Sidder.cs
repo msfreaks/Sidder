@@ -10,15 +10,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.DirectoryServices.AccountManagement;
+using SidderApp.Exceptions;
 using SidderApp.Parser;
+using SidderApp.Storages;
 
 namespace SidderApp
 {
     public partial class Sidder : Form
     {
         // private ListViewColumnSorter listViewColumnSorter;
-        private PrincipalContext principalContext = new PrincipalContext(ContextType.Domain);
-        private byte resolveType { get; set; }
+        private DiskListStorage _disks { get; set; }
 
         public Sidder()
         {
@@ -27,6 +28,7 @@ namespace SidderApp
             this.listViewUVHDFiles.ListViewItemSorter = new Sorter();
             //this.listViewUVHDFiles.ListViewItemSorter = listViewColumnSorter;
 
+            this._disks = new DiskListStorage();
         }
 
 
@@ -52,44 +54,6 @@ namespace SidderApp
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        private string ConvertUVHDtoUsername(string fileName)
-        {
-            string returnValue = String.Empty;
-
-            fileName = fileName.ToUpper();
-
-            try
-            {
-                if (fileName.Substring(0, 5) != "UVHD-" || fileName.Substring(fileName.Length - 5, 5) != ".VHDX")
-                {
-                    returnValue = "Filename Error";
-                }
-                else if (fileName == "UVHD-TEMPLATE.VHDX")
-                {
-                    returnValue = "## UPD template file";
-                }
-                else
-                {
-                    switch(this.resolveType)
-                    {
-                        case 0:
-                            returnValue = new SecurityIdentifier(fileName.Substring(5, fileName.Length - 10)).Translate(typeof(NTAccount)).ToString();
-                            break;
-                        case 1:
-                            UserPrincipal user = UserPrincipal.FindByIdentity(principalContext, (fileName.Substring(5, fileName.Length - 10)));
-                            returnValue = user.UserPrincipalName;
-                            break;
-                    }
-                }
-
-            }
-            catch 
-            {
-                returnValue = "SID Resolve Error";
-            }
-
-            return returnValue;
-        }
 
         private void listViewUVHDFiles_ColumnClick(object sender, ColumnClickEventArgs e)
         {
@@ -143,32 +107,31 @@ namespace SidderApp
 
         private void Sidder_Load(object sender, EventArgs e)
         {
-            this.listViewUVHDFiles.Columns[0].Width = Properties.Settings.Default.userColumn1;
-            this.listViewUVHDFiles.Columns[1].Width = Properties.Settings.Default.userColumn2;
-            this.listViewUVHDFiles.Columns[2].Width = Properties.Settings.Default.userColumn3;
-            this.listViewUVHDFiles.Columns[3].Width = Properties.Settings.Default.userColumn4;
-            this.listViewUVHDFiles.Columns[4].Width = Properties.Settings.Default.userColumn5;
-            this.listViewUVHDFiles.Columns[5].Width = Properties.Settings.Default.userColumn6;
-            this.Width = Properties.Settings.Default.sidderWidth;
-            this.Height = Properties.Settings.Default.sidderHeight;
-            this.resolveType = Properties.Settings.Default.resolveTypeSID;
+            this.listViewUVHDFiles.Columns[0].Width = Config.CurrentConfig.ColumnWitdth1;
+            this.listViewUVHDFiles.Columns[1].Width = Config.CurrentConfig.ColumnWitdth2;
+            this.listViewUVHDFiles.Columns[2].Width = Config.CurrentConfig.ColumnWitdth3;
+            this.listViewUVHDFiles.Columns[3].Width = Config.CurrentConfig.ColumnWitdth4;
+            this.listViewUVHDFiles.Columns[4].Width = Config.CurrentConfig.ColumnWitdth5;
+            this.listViewUVHDFiles.Columns[5].Width = Config.CurrentConfig.ColumnWitdth6;
+            this.Width = Config.CurrentConfig.MainFormWidth;
+            this.Height = Config.CurrentConfig.MainFormHeight;
 
-            if (!String.IsNullOrEmpty(Properties.Settings.Default.userUVHDFilePath)) { this.textBoxFilePathUVHD.Text = Properties.Settings.Default.userUVHDFilePath; }
+            if (!String.IsNullOrEmpty(Config.CurrentConfig.PathUVHD)) { this.textBoxFilePathUVHD.Text = Config.CurrentConfig.PathUVHD; }
         }
 
         private void Sidder_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.userUVHDFilePath = this.textBoxFilePathUVHD.Text;
-            Properties.Settings.Default.userColumn1 = this.listViewUVHDFiles.Columns[0].Width;
-            Properties.Settings.Default.userColumn2 = this.listViewUVHDFiles.Columns[1].Width;
-            Properties.Settings.Default.userColumn3 = this.listViewUVHDFiles.Columns[2].Width;
-            Properties.Settings.Default.userColumn4 = this.listViewUVHDFiles.Columns[3].Width;
-            Properties.Settings.Default.userColumn5 = this.listViewUVHDFiles.Columns[4].Width;
-            Properties.Settings.Default.userColumn6 = this.listViewUVHDFiles.Columns[5].Width;
-            Properties.Settings.Default.sidderWidth = this.Width;
-            Properties.Settings.Default.sidderHeight = this.Height;
-            Properties.Settings.Default.resolveTypeSID = this.resolveType;
-            Properties.Settings.Default.Save();
+            Config.CurrentConfig.PathUVHD = this.textBoxFilePathUVHD.Text;
+            Config.CurrentConfig.ColumnWitdth1 = this.listViewUVHDFiles.Columns[0].Width;
+            Config.CurrentConfig.ColumnWitdth2 = this.listViewUVHDFiles.Columns[1].Width;
+            Config.CurrentConfig.ColumnWitdth3 = this.listViewUVHDFiles.Columns[2].Width;
+            Config.CurrentConfig.ColumnWitdth4 = this.listViewUVHDFiles.Columns[3].Width;
+            Config.CurrentConfig.ColumnWitdth5 = this.listViewUVHDFiles.Columns[4].Width;
+            Config.CurrentConfig.ColumnWitdth6 = this.listViewUVHDFiles.Columns[5].Width;
+            Config.CurrentConfig.MainFormWidth = this.Width;
+            Config.CurrentConfig.MainFormHeight = this.Height;
+
+            Config.CurrentConfig.Dispose();
         }
 
         private void textBoxFilePathUVHD_TextChanged(object sender, EventArgs e)
@@ -177,55 +140,39 @@ namespace SidderApp
 
             if (filePathUVHD.ToLower() == textBoxFilePathUVHDCurrent.Text) { return; }
 
-            refreshListBox(filePathUVHD);
+            refreshListBox(textBoxFilePathUVHD.Text);
 
             textBoxFilePathUVHDCurrent.Text = filePathUVHD.ToLower();
         }
 
-        private void refreshListBox(string filePath)
+        private void refreshDiskList(string filePath)
+        {
+            this._disks.UpdateListUPD(filePath);
+        }
+
+        private void refreshListBox(string filePath, bool updateViewOnly = false)
         {
             buttonRefresh.Enabled = false;
             listViewUVHDFiles.Enabled = false;
-            
+            textBoxSearchUsername.Text = String.Empty;
+
+            if (!updateViewOnly) refreshDiskList(filePath);
+
             try
             {
-                DirectoryInfo directory = new DirectoryInfo(filePath);
-                if (!directory.Exists)
-                {
-                    textBoxStatus.Text = "Folder not found.";
-                    return;
-                }
-
-                FileInfo[] files = directory.GetFiles("UVHD-*.vhdx");
-
-                if (files.GetLength(0) < 1)
-                {
-                    textBoxStatus.Text = "No UVHD Profile disks found in current folder.";
-                    return;
-                }
-
                 textBoxStatus.Text = "Refreshing..";
 
-                listViewUVHDFiles.Items.Clear();
-
-                foreach (FileInfo file in files)
-                {
-                    int fileLock = IsFileLocked(file) ? 1 : 0;
-
-                    ListViewItem item = new ListViewItem(file.Name, fileLock);
-                    item.SubItems.Add(file.LastWriteTime.ToString());
-                    item.SubItems.Add(ConvertUVHDtoUsername(file.Name));
-                    long fileSize = file.Length / 1024 / 1024;
-                    item.SubItems.Add(fileSize.ToString());
-                    var vhdxInfo = new VHDXParser(file.FullName);
-                    item.SubItems.Add((vhdxInfo.FirstPartitionSize / 1024 / 1024).ToString());
-                    item.SubItems.Add((vhdxInfo.NativeDiskSize / 1024 / 1024).ToString());
-                    item.SubItems.Add(file.FullName);
-
-                    listViewUVHDFiles.Items.Add(item);
-                }
+                refreshListBox(this._disks.DiskList);
 
                 textBoxStatus.Text = String.Format("Folder processed. {0} UVHD Profile disks found.", listViewUVHDFiles.Items.Count.ToString());
+            }
+            catch (NoFilesFoundException)
+            {
+                textBoxStatus.Text = "No UVHD Profile disks found in current folder.";
+            }
+            catch (DirectoryNotFoundException)
+            {
+                textBoxStatus.Text = "Folder not found.";
             }
             catch (Exception e)
             {
@@ -233,6 +180,29 @@ namespace SidderApp
             }
             buttonRefresh.Enabled = true;
             listViewUVHDFiles.Enabled = true;
+        }
+
+        private void refreshListBox(IEnumerable<DiskListStorage.DiskListEntry> _diskList)
+        {
+            buttonExpand.Enabled = false;
+            buttonDelete.Enabled = false;
+
+            listViewUVHDFiles.Items.Clear();
+
+            foreach (var disk in _diskList)
+            {
+                int fileLock = disk.DiskInUse ? 1 : 0;
+
+                ListViewItem item = new ListViewItem(disk.DiskName, fileLock);
+                item.SubItems.Add(disk.DiskFileLastChange.ToString());
+                item.SubItems.Add(disk.DiskUsername);
+                item.SubItems.Add(disk.DiskFileSizeMB.ToString());
+                item.SubItems.Add(disk.DiskPartitionSizeMB.ToString());
+                item.SubItems.Add(disk.DiskNativeSizeMB.ToString());
+                item.SubItems.Add(disk.DiskFullName);
+
+                listViewUVHDFiles.Items.Add(item);
+            }
         }
 
         private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -263,8 +233,12 @@ namespace SidderApp
         private void buttonSettings_Click(object sender, EventArgs e)
         {
             SettingsBox settingsBox = new SettingsBox();
-            settingsBox.radioButtonNTAccount.Checked = (this.resolveType == 0);
-            settingsBox.radioButtonUPN.Checked = (this.resolveType == 1);
+            settingsBox.radioButtonNTAccount.Checked = (Config.CurrentConfig.UsernameFormat == UsernameFormatType.NTAccount);
+            settingsBox.radioButtonUPN.Checked = (Config.CurrentConfig.UsernameFormat == UsernameFormatType.UserPrincipalName);
+            settingsBox.radioButtonCSVComma.Checked = (Config.CurrentConfig.ExportDivider == ExportDividerType.Comma);
+            settingsBox.radioButtonCSVSemicolon.Checked = (Config.CurrentConfig.ExportDivider == ExportDividerType.Semicolon);
+            settingsBox.radioButtonCSVSizeMB.Checked = (Config.CurrentConfig.ExportSize == ExportSizeType.Megabytes);
+            settingsBox.radioButtonCSVSizeBytes.Checked = (Config.CurrentConfig.ExportSize == ExportSizeType.Bytes);
 
             DialogResult result = settingsBox.ShowDialog();
 
@@ -272,7 +246,9 @@ namespace SidderApp
 
             if (result == DialogResult.OK)
             {
-                this.resolveType = (byte) (settingsBox.radioButtonNTAccount.Checked ? 0 : 1);
+                Config.CurrentConfig.UsernameFormat = (settingsBox.radioButtonNTAccount.Checked ? UsernameFormatType.NTAccount : UsernameFormatType.UserPrincipalName);
+                Config.CurrentConfig.ExportDivider = (settingsBox.radioButtonCSVComma.Checked ? ExportDividerType.Comma : ExportDividerType.Semicolon);
+                Config.CurrentConfig.ExportSize = (settingsBox.radioButtonCSVSizeMB.Checked ? ExportSizeType.Megabytes : ExportSizeType.Bytes);
 
                 refreshListBox(textBoxFilePathUVHD.Text);
             }
@@ -366,25 +342,43 @@ namespace SidderApp
             }
         }
 
-        protected virtual bool IsFileLocked(FileInfo file)
+        private void buttonExport_Click(object sender, EventArgs e)
         {
-            FileStream stream = null;
+            using (var fileSave = new SaveFileDialog())
+            {
+                fileSave.Title = "Export to CSV";
+                fileSave.Filter = "CSV file (*.csv)|*.csv| All Files (*.*)|*.*";
+                fileSave.FilterIndex = 0;
+                fileSave.RestoreDirectory = true;
+                fileSave.CreatePrompt = true;
 
-            try
-            {
-                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+                if (fileSave.ShowDialog() == DialogResult.OK)
+                {
+                    if (this._disks.ExportCSV(fileSave.FileName))
+                    {
+                        MessageBox.Show("Export done!", "CSV Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Export failed!", "CSV Export", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
             }
-            catch (IOException)
-            {
-                return true;
-            }
-            finally
-            {
-                if (stream != null)
-                    stream.Close();
-            }
+        }
 
-            return false;
+        private void textBoxSearchUsername_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter) && this._disks.DiskList.Count > 0)
+            {
+                if (textBoxSearchUsername.Text.Length > 0)
+                {
+                    refreshListBox(this._disks.DiskList.Where(x => x.DiskUsername.ToLower().Contains(textBoxSearchUsername.Text.ToLower())));
+                }
+                else
+                {
+                    refreshListBox(this._disks.DiskList);
+                }
+            }
         }
     }
 }

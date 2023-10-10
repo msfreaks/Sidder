@@ -7,9 +7,11 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Security.Principal;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SidderApp.Exceptions;
 using SidderApp.Parser;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SidderApp.Storages
 {
@@ -27,13 +29,29 @@ namespace SidderApp.Storages
             if (Directory.Exists(dirPath))
             {
                 var directory = new DirectoryInfo(dirPath);
-                var files = directory.GetFiles("UVHD-*.vhdx");
 
-                if (files.Length > 0)
+                if (Config.CurrentConfig.DiskProvider == DiskProviderType.UserProfileDisk)
                 {
-                    UpdateList(files);
+                    var files = directory.GetFiles("UVHD-*.vhdx", SearchOption.TopDirectoryOnly);
+
+                    if (files.Length > 0)
+                    {
+                        UpdateList(files);
+                    }
+                    else throw new NoFilesFoundException();
                 }
-                else throw new NoFilesFoundException();
+                else
+                {
+                    var directories = directory.GetDirectories("*", SearchOption.TopDirectoryOnly);
+
+                    if (directories.Length > 0)
+                    {
+                        UpdateList(directories);
+                    }
+                    else throw new NoDirectoriesFoundException();
+                }
+                
+
             }
             else throw new DirectoryNotFoundException();
         }
@@ -46,6 +64,33 @@ namespace SidderApp.Storages
             {
                 this.DiskList.Add(new DiskListEntry(file.FullName));
             }
+        }
+
+        private void UpdateList(DirectoryInfo[] directories)
+        {
+            this.DiskList.Clear();
+
+            foreach (var directory in directories)
+            {
+                if (CheckFSLogixDirFormat(directory.Name))
+                {
+                    var files = directory.GetFiles("*.vhdx", SearchOption.TopDirectoryOnly);
+                    if (files.Length > 0)
+                    {
+                        this.DiskList.Add(new DiskListEntry(files[0].FullName));
+                    }
+                }
+            }
+        }
+
+        private bool CheckFSLogixDirFormat(string directoryName)
+        {
+            var regexBase = @"%sid%_%username%";
+            var regexSearch = Regex.Escape(regexBase).Replace("%sid%", @"(?<sid>[S0-9-]+)").Replace("%username%", @"(?<username>[\w]+)").Replace("%ignore%", @"(?<ignore>.*?)");
+
+            var match = Regex.Match(directoryName, regexSearch);
+
+            return (match.Success && match.Groups["sid"].Value != String.Empty && match.Groups["username"].Value != String.Empty) ? true : false;
         }
 
         public bool ExportCSV(string fileName)
@@ -93,8 +138,10 @@ namespace SidderApp.Storages
             public long DiskFileSizeMB { get { return this.DiskFileSize / 1024 / 1024; } }
             public ulong DiskPartitionSize { get { return this.VHDXParser.FirstPartitionSize; } }
             public ulong DiskPartitionSizeMB { get { return this.DiskPartitionSize / 1024 / 1024; } }
-            public ulong DiskNativeSize { get { return this.VHDXParser.NativeDiskSize; } set { { this.VHDXParser.SetNativeDiskSize(value); } } }
-            public ulong DiskNativeSizeMB { get { return this.DiskNativeSize / 1024 / 1024; } set { { this.DiskNativeSize = value * 1024 * 1024; } } }
+            public ulong DiskNativeSize { get { return this.VHDXParser.NativeDiskSize; } set { this.VHDXParser.SetNativeDiskSize(value); } }
+            public ulong DiskNativeUsedSize { get { return this.VHDXParser.NativeUsedDiskSize; } }
+            public ulong DiskNativeSizeMB { get { return this.DiskNativeSize / 1024 / 1024; } set { this.DiskNativeSize = value * 1024 * 1024; } }
+            public ulong DiskNativeUsedSizeMB { get { return this.DiskNativeUsedSize / 1024 / 1024; } }
 
             public DiskListEntry(string fileName)
             {
@@ -103,6 +150,7 @@ namespace SidderApp.Storages
                     this.DiskFileInfo = new FileInfo(fileName);
                     this.VHDXParser = new VHDXParser(fileName);
                 }
+                else throw new FileNotFoundException("Virtual disk file not found", fileName);
             }
 
             private bool IsFileLocked(FileInfo file)

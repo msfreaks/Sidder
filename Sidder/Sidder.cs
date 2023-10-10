@@ -189,6 +189,7 @@ namespace SidderApp
 
             listViewUVHDFiles.Items.Clear();
 
+            listViewUVHDFiles.BeginUpdate();
             foreach (var disk in _diskList)
             {
                 int fileLock = disk.DiskInUse ? 1 : 0;
@@ -203,6 +204,7 @@ namespace SidderApp
 
                 listViewUVHDFiles.Items.Add(item);
             }
+            listViewUVHDFiles.EndUpdate();
         }
 
         private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -250,7 +252,7 @@ namespace SidderApp
                 Config.CurrentConfig.ExportDivider = (settingsBox.radioButtonCSVComma.Checked ? ExportDividerType.Comma : ExportDividerType.Semicolon);
                 Config.CurrentConfig.ExportSize = (settingsBox.radioButtonCSVSizeMB.Checked ? ExportSizeType.Megabytes : ExportSizeType.Bytes);
 
-                refreshListBox(textBoxFilePathUVHD.Text);
+                refreshListBox(textBoxFilePathUVHD.Text, true);
             }
         }
 
@@ -297,7 +299,7 @@ namespace SidderApp
                         }
                     }
 
-                    refreshListBox(textBoxFilePathUVHD.Text);
+                    refreshListBox(textBoxFilePathUVHD.Text, true);
                 }
             }
         }

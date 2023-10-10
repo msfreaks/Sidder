@@ -30,6 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Sidder));
+            System.Windows.Forms.ColumnHeader columnHeader1;
+            System.Windows.Forms.ColumnHeader columnHeader2;
+            System.Windows.Forms.ColumnHeader columnHeader3;
+            System.Windows.Forms.ColumnHeader columnHeader4;
+            System.Windows.Forms.ColumnHeader columnHeader5;
+            System.Windows.Forms.ColumnHeader columnHeader6;
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.textBoxFilePathUVHD = new System.Windows.Forms.TextBox();
             this.labelPathToUVHD = new System.Windows.Forms.Label();
@@ -44,14 +50,14 @@
             this.buttonBrowse = new System.Windows.Forms.Button();
             this.buttonExport = new System.Windows.Forms.Button();
             this.listViewUVHDFiles = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.textBoxSearchUsername = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // imageList
@@ -199,12 +205,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewUVHDFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6});
+            columnHeader1,
+            columnHeader2,
+            columnHeader3,
+            columnHeader4,
+            columnHeader5,
+            columnHeader6});
             this.listViewUVHDFiles.FullRowSelect = true;
             this.listViewUVHDFiles.HideSelection = false;
             this.listViewUVHDFiles.Location = new System.Drawing.Point(12, 55);
@@ -219,39 +225,39 @@
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Tag = "";
-            this.columnHeader1.Text = "UVHD file";
-            this.columnHeader1.Width = 342;
+            columnHeader1.Tag = "";
+            columnHeader1.Text = "UVHD file";
+            columnHeader1.Width = 342;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Tag = "DateTime";
-            this.columnHeader2.Text = "Last change";
-            this.columnHeader2.Width = 133;
+            columnHeader2.Tag = "DateTime";
+            columnHeader2.Text = "Last change";
+            columnHeader2.Width = 133;
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Tag = "";
-            this.columnHeader3.Text = "Username";
-            this.columnHeader3.Width = 161;
+            columnHeader3.Tag = "";
+            columnHeader3.Text = "Username";
+            columnHeader3.Width = 161;
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Tag = "Numeric";
-            this.columnHeader4.Text = "Size (MB)";
+            columnHeader4.Tag = "Numeric";
+            columnHeader4.Text = "Size (MB)";
             // 
             // columnHeader5
             // 
-            this.columnHeader5.Tag = "Numeric";
-            this.columnHeader5.Text = "PartitionSize (MB)";
-            this.columnHeader5.Width = 110;
+            columnHeader5.Tag = "Numeric";
+            columnHeader5.Text = "PartitionSize (MB)";
+            columnHeader5.Width = 110;
             // 
             // columnHeader6
             // 
-            this.columnHeader6.Tag = "Numeric";
-            this.columnHeader6.Text = "NativeSize (MB)";
-            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader6.Width = 100;
+            columnHeader6.Tag = "Numeric";
+            columnHeader6.Text = "NativeSize (MB)";
+            columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            columnHeader6.Width = 100;
             // 
             // textBoxSearchUsername
             // 
@@ -317,12 +323,6 @@
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.ListView listViewUVHDFiles;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.Button buttonExpand;
         private System.Windows.Forms.Button buttonSettings;
         private System.Windows.Forms.Button buttonExport;

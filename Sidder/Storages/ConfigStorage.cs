@@ -37,6 +37,12 @@ namespace SidderApp.Storages
         Bytes = 1
     }
 
+    internal enum DiskProviderType
+    {
+        UserProfileDisk = 0,
+        FSLogix = 1
+    }
+
     internal class ConfigStorage : IDisposable
     {
         public PrincipalContext PrincipalContext { get; private set; }
@@ -52,6 +58,7 @@ namespace SidderApp.Storages
         public UsernameFormatType UsernameFormat { get { return (Properties.Settings.Default.resolveTypeSID == 0) ? UsernameFormatType.NTAccount : UsernameFormatType.UserPrincipalName; } set { Properties.Settings.Default.resolveTypeSID = (byte)(value == UsernameFormatType.NTAccount ? 0 : 1); } }
         public ExportDividerType ExportDivider { get { return (Properties.Settings.Default.exportDividerType == 0) ? ExportDividerType.Comma : ExportDividerType.Semicolon; } set { Properties.Settings.Default.exportDividerType = (byte)(value == ExportDividerType.Comma ? 0 : 1); } }
         public ExportSizeType ExportSize { get { return (Properties.Settings.Default.exportSizeType == 0) ? ExportSizeType.Megabytes : ExportSizeType.Bytes; } set { Properties.Settings.Default.exportSizeType = (byte)(value == ExportSizeType.Megabytes ? 0 : 1); } }
+        public DiskProviderType DiskProvider { get { return (Properties.Settings.Default.diskProviderType == 0) ? DiskProviderType.UserProfileDisk : DiskProviderType.FSLogix; } set { Properties.Settings.Default.diskProviderType = (byte)(value == DiskProviderType.UserProfileDisk ? 0 : 1); } }
 
         public ConfigStorage()
         {

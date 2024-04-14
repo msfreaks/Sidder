@@ -64,6 +64,9 @@
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\SidderExceptions.cs" />
+    <Compile Include="Extensions\BinaryReaderExtensions.cs" />
+    <Compile Include="Parser\VhdxMetadata.cs" />
+    <Compile Include="Parser\VhdxReader.cs" />
     <Compile Include="SettingsBox.cs">
       <SubType>Form</SubType>
     </Compile>

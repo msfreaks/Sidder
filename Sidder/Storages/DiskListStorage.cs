@@ -124,10 +124,11 @@ namespace SidderApp.Storages
             }
         }
 
-        internal class DiskListEntry
+        internal class DiskListEntry : IDisposable
         {
             private FileInfo DiskFileInfo { get; set; }
             private VHDXParser VHDXParser { get; set; }
+            private VhdxReader VhdxReader { get; set; }
 
             public string DiskFullName { get { return this.DiskFileInfo.FullName; } }
             public string DiskName { get { return this.DiskFileInfo.Name; } }
@@ -149,8 +150,14 @@ namespace SidderApp.Storages
                 {
                     this.DiskFileInfo = new FileInfo(fileName);
                     this.VHDXParser = new VHDXParser(fileName);
+                    this.VhdxReader = new VhdxReader(fileName);
                 }
                 else throw new FileNotFoundException("Virtual disk file not found", fileName);
+            }
+
+            public void Dispose()
+            {
+                if (VhdxReader != null) VhdxReader.Dispose();
             }
 
             private bool IsFileLocked(FileInfo file)

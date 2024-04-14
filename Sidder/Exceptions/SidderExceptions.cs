@@ -26,4 +26,11 @@ namespace SidderApp.Exceptions
         public VhdxParseException(string message) : base(message) { }
         public VhdxParseException(string message, Exception innerException) : base(message, innerException) { }
     }
+
+    public class InvalidVhdxFileException : Exception
+    {
+        public InvalidVhdxFileException() : base() { }
+        public InvalidVhdxFileException(string message) : base(message) { }
+        public InvalidVhdxFileException(string message, Exception innerException) : base(message, innerException) { }
+    }
 }

@@ -76,21 +76,6 @@ namespace SidderApp.Parser
             if (BaseStream != null) BaseStream.Dispose();
         }
 
-        public string ReturnMetadata()
-        {
-            var result = String.Empty;
-
-            result += String.Format("VirtualDiskSize: {0}", VhdxMetadata.VirtualDiskSize) + Environment.NewLine;
-            result += String.Format("BlockSize: {0}", VhdxMetadata.BlockSize) + Environment.NewLine;
-            result += String.Format("BlockAllocationTableOffset: {0}", VhdxMetadata.BlockAllocationTableOffset) + Environment.NewLine;
-            result += String.Format("BlockAllocationTableSize: {0}", VhdxMetadata.BlockAllocationTableSize) + Environment.NewLine;
-            result += String.Format("PayloadBlockCount: {0}", VhdxMetadata.PayloadBlockCount) + Environment.NewLine;
-            result += String.Format("ChunkRatio: {0}", VhdxMetadata.ChunkRatio) + Environment.NewLine;
-            result += String.Format("SectorBitmapBlockCount: {0}", VhdxMetadata.SectorBitmapBlockCount) + Environment.NewLine;
-            result += String.Format("TotalBlockAllocationTableEntryCount: {0}", VhdxMetadata.TotalBlockAllocationTableEntryCount) + Environment.NewLine;
-
-            return result;
-        }
 
         public override void Flush()
         {
@@ -100,17 +85,30 @@ namespace SidderApp.Parser
         public override int Read(byte[] buffer, int offset, int count)
         {
             int bytesWritten = 0;
+            var entryNum = -1;
+            var seekingNeeded = false;
 
             for (int i = 0; i < count; i++)
             {
-                var entryNum = (int)Math.Floor((decimal)VirtualPosition / (decimal)VhdxMetadata.BlockSize);
+                var calculatedEntryNum = (int)Math.Floor((decimal)VirtualPosition / (decimal)VhdxMetadata.BlockSize);
+                if (entryNum != calculatedEntryNum)
+                {
+                    entryNum = calculatedEntryNum;
+                    seekingNeeded = true;
+                }
+
                 var offsetInsideBlock = VirtualPosition - (entryNum * VhdxMetadata.BlockSize);
 
                 if (BlockAllocationTable.ContainsKey(entryNum))
                 {
                     if (BlockAllocationTable[entryNum].IsBlockPresent)
                     {
-                        Reader.BaseStream.Seek((BlockAllocationTable[entryNum].FileOffsetMB * 1048576) + offsetInsideBlock, SeekOrigin.Begin);
+                        if (seekingNeeded)
+                        {
+                            Reader.BaseStream.Seek((BlockAllocationTable[entryNum].FileOffsetMB * 1048576) + offsetInsideBlock, SeekOrigin.Begin);
+                            seekingNeeded = false;
+                        }
+
                         buffer[offset + i] = Reader.ReadByte();
                     }
                     else

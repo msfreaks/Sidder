@@ -156,12 +156,11 @@ namespace SidderApp
             listViewUVHDFiles.Enabled = false;
             textBoxSearchUsername.Text = String.Empty;
 
-            if (!updateViewOnly) refreshDiskList(filePath);
-
             try
             {
                 textBoxStatus.Text = "Refreshing..";
 
+                if (!updateViewOnly) refreshDiskList(filePath);
                 refreshListBox(this._disks.DiskList);
 
                 textBoxStatus.Text = String.Format("Folder processed. {0} UVHD Profile disks found.", listViewUVHDFiles.Items.Count.ToString());

@@ -251,7 +251,7 @@ namespace SidderApp.Parser
                         continue;
                     }
 
-                    if (itemID.Equals(FixedGuids.MetadataItemType.PhysicalSectorSize))
+                    if (itemID.Equals(FixedGuids.MetadataItemType.ParentLocator))
                     {
                         throw new NotImplementedException();
                     }
